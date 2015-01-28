@@ -13,9 +13,9 @@
                         </select>
                     </div>
                     <div class="col-xs-12">
-                        <div class="col-xs-5">
+                        <div class="col-xs-5" id="bel-source-div">
                             <label class="sr-only" for="belsource">BEL Source</label>
-                            <input type="text" class="form-control" id="belsource" placeholder="Source" ng-model="belsource">
+                            <input type="text" class="form-control typeahead" id="belsource" placeholder="Source" ng-model="belsource" autocomplete="off">
                         </div>
                         <div class="col-xs-2">
                             <label class="sr-only" for="belrelation">BEL Relation</label>
@@ -23,9 +23,9 @@
                             </select> -->
                             <input type="text" class="form-control" id="belrelation" placeholder="Relationship" ng-model="belrelation">
                         </div>
-                        <div class="col-xs-5">
+                        <div class="col-xs-5" id="bel-target-div">
                             <label class="sr-only" for="beltarget">BEL Target</label>
-                            <input type="text" class="form-control" id="beltarget" placeholder="Target" ng-model="beltarget">
+                            <input type="text" class="form-control typeahead" id="beltarget" placeholder="Target" ng-model="beltarget" autocomplete="off">
                         </div>
                     </div>
                 </fieldset>
