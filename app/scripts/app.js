@@ -40,7 +40,7 @@ angular
         controller: 'SearchCtrl'
       })
       .when('/newbel', {
-        templateUrl: 'views/newbel.html',
+        templateUrl: 'views/bel-edit.html',
         controller: 'NewbelCtrl'
       })
       .when('/help', {
