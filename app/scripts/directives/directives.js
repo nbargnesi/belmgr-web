@@ -22,3 +22,21 @@ angular.module('belmgrWebApp')
     }
 }]);
 
+// <div my-facet my-facet-title="Test Facet" my-facet-data="facet-data"></div>
+angular.module('belmgrWebApp')
+    .directive('myFacet', function () {
+        return {
+            restrict: 'A', // use as an attribute
+            replace: true,
+            templateUrl: 'views/search-facet-tpl.html',
+            scope: {
+                myFacetTitle: "@",
+                myFacetData: "@"
+            },
+            controller: function ($scope) {
+
+            }
+
+        }
+});
+

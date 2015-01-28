@@ -1,0 +1,78 @@
+<div>
+    <form name="belstatement_form" ng-controller="belStatementFormController" ng-submit="submitForm()" novalidate>
+
+
+    <!-- SummaryText -->
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="form-group">
+                <fieldset>
+                    <div class="col-xs-12">
+                        <legend>BEL Summary Text</legend>
+                        <label class="sr-only" for="summaryText">BEL Summary Text</label>
+                        <textarea class="form-control" id="summaryText" rows="3" placeholder="Extract from source text supporting this BEL Statement"></textarea>
+                    </div>
+                    <!-- /.col-xs-12 -->
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <!-- Structured Annotations -->
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="form-group">
+                <fieldset>
+                    <legend>Structured Annotations</legend>
+
+                    <div class="col-xs-3">
+                        <label for="">Annotation Type</label>
+                        <select class="form-control" id="" ng-model="" ng-options="annotation_type as annotation_type.label for annotation_type in annotation_types"></select>
+                    </div>
+                    <!-- /.col-xs-3 -->
+                    <div class="col-xs-9">
+                        <label for="">Annotation</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <!-- /.col-xs-9 -->
+                </fieldset>
+            </div>
+            <!-- /.form-group -->
+        </div>
+    </div>
+
+    <!-- Collapsible entity search and template selection -->
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <a href="" class="btn btn-primary" data-toggle="collapse" data-target="#annotation_search_collapse" aria-expanded="false" aria-controls="annotation_search_collapse">Advanced BEL Annotation Search</a>
+            <div class="collapse" id="entity_search_collapse">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Annotations -->
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="form-group">
+                <fieldset>
+                    <legend>Free Annotations</legend>
+
+                    <div class="col-xs-3">
+                        <label for="">Annotation Type</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <!-- /.col-xs-3 -->
+                    <div class="col-xs-9">
+                        <label for="">Annotation</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <!-- /.col-xs-9 -->
+                </fieldset>
+            </div>
+            <!-- /.form-group -->
+        </div>
+    </div>
+
+    </form>
+</div>
