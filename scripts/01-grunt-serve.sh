@@ -29,7 +29,6 @@ create_gem_path || exit 1
 export PATH="$GOSH_CONTRIB_RUBY_GEMPATH/bin":$PATH
 
 cd "$DIR" || exit 1
-echo $PATH | vim -
 require_cmd "bower" || exit 1  # installed via npm
 require_cmd "grunt" || exit 1  # installed via npm
 require_cmd "compass" || exit 1  # needs to be manually installed
