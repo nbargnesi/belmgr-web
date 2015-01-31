@@ -17,3 +17,10 @@ default NPM_PKGJSON     "$DIR"/package.json
 ### THE GO SHELL ###
 default GOSH_SCRIPTS    "$DIR"/scripts
 default GOSH_CONTRIB    "$DIR"/scripts/gosh-contrib
+
+### GOSH CONTRIB ENV VARS ###
+default GOSH_CONTRIB_RUBY_GEMFILE       "$DIR"/Gemfile
+default GOSH_CONTRIB_RUBY_GEMPATH       "$DIR"/gems
+default GOSH_CONTRIB_NODE_NPM_PKGJSON   "$DIR"/package.json
+default GOSH_CONTRIB_NODE_NPM_MODPATH   "$DIR"
+
