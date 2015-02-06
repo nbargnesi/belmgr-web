@@ -13,9 +13,7 @@ angular.module('belmgrWebApp')
     var run_search = function(query, offset) {
 
         return {
-            'results': [
-                ''
-            ]
-        }
-    }
+            'results': []
+        };
+    };
   });

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('belmgrWebApp')
     .directive('bsActiveLink', ['$location', function ($location) {
     return {
@@ -5,7 +7,7 @@ angular.module('belmgrWebApp')
         replace: false,
         link: function (scope, elem) {
             //after the route has changed
-            scope.$on("$routeChangeSuccess", function () {
+            scope.$on('$routeChangeSuccess', function () {
                 var hrefs = ['/#' + $location.path(),
                              '#' + $location.path(), //html5: false
                              $location.path()]; //html5: true
@@ -15,11 +17,11 @@ angular.module('belmgrWebApp')
                         a.parent().addClass('active');
                     } else {
                         a.parent().removeClass('active');
-                    };
+                    }
                 });
             });
         }
-    }
+    };
 }]);
 
 // <div my-facet my-facet-title="Test Facet" my-facet-data="facet-data"></div>
@@ -30,13 +32,13 @@ angular.module('belmgrWebApp')
             replace: true,
             templateUrl: 'views/search-facet-tpl.html',
             scope: {
-                myFacetTitle: "@",
-                myFacetData: "@"
+                myFacetTitle: '@',
+                myFacetData: '@'
             },
             controller: function ($scope) {
 
             }
 
-        }
+        };
 });
 
