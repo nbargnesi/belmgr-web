@@ -9,5 +9,5 @@ export SCRIPT_HELP="Serve the app via Grunt."
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"/../
 source "$DIR"/env.sh || exit 1
 assert_env "$SCRIPTS" || exit 1
-"$SCRIPTS"/grunt.sh serve
+"$SCRIPTS"/grunt.sh build
 
