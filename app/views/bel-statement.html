@@ -1,164 +1,131 @@
-<form name="belstatement_form" ng-controller="NewbelCtrl" ng-submit="submitForm()" novalidate>
-    <div class="bottom30">
-        <div class="col-xs-10 col-xs-offset-1">
-            <div class="form-group">
-                <fieldset>
-                    <div class="col-xs-3">
-                        <legend>BEL Editor</legend>
-                    </div>
-                    <!-- .col-xs-3 -->
-                    <div class="col-xs-2 col-xs-offset-7">
-                        <select class="form-control pull-right" id="status" ng-model="bels.status" ng-options="status as status.label for status in statuses" ng-init="bels.status = bels.status || options[0].value">
-                        </select>
-                    </div>
-                    <!-- .col-xs-2.col-xs-offset-7 -->
-                    <div class="col-xs-12">
-                        <p>Bel Expression Result: </p>
-                    </div>
-                    <!-- .col-xs-12 -->
-                    <div class="col-xs-12" id="bel-source-div">
-                        <div class="col-xs-5">
-                            <div class="input-group">
-                                <label class="sr-only" for="belsource">BEL Source</label>
-                                <input id="belsource" class="form-control typeahead" placeholder="Source" ng-model="bels.belsource" autocomplete="off" data-ng-change="doSourceQuery()" data-ng-model-options="{debounce: 300}"></input>
-                                <span class="input-group-btn">
-                                        <button class="btn btn-primary" data-ng-click="toggleSourceTemplate()">T</button>
-                                        <button class="btn btn-primary" data-ng-click="toggleSourceSearch()">S</button>
-                                </span>
-                                <!-- .input-group-btn -->
-                            </div>
-                            <!-- .input-group -->
-                            <div id="source-templatebox" class="template-box" style="display: none;">
-                                <!-- might be better to create template for it later -->
-                                <h3>BEL Template</h3>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> abundances
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> modifications
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> activities
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> processes
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> transformations
-                                </label>
-                                <hr />
-                                <div>
-                                    <p>Output</p>
-                                </div>
-                                <hr />
-                                <div class="text-center">
-                                    <button class="btn btn-primary text-center">Select</button>
-                                </div>
-                                <!-- .text-center -->
-                            </div>
-                            <!-- #source-templatebox.template-box -->
-                            <div id="source-searchbox" class="search-box" style="display: none;">
-                                <!-- might be better to create template for it later -->
-                                <h3>Entity Search</h3>
-                            </div>
-                            <!-- #source-searchbox.search-box -->
-                        </div>
-                        <!-- .col-xs-5 -->
-                        <div class="col-xs-2">
-                            <label class="sr-only" for="belrelation">BEL Relation</label>
-                            <select class="form-control" id="belrelation" ng-model="belrelation" ng-options="relation as relation.label for relation in relations" style="margin-top: 4px;">
-                            </select>
-                            <!-- 
-                                <input type="text" class="form-control" id="belrelation" placeholder="Relationship" ng-model="belrelation">
-                            -->
-                        </div>
-                        <!-- .col-xs-2 -->
-                        <div class="col-xs-5" id="bel-target-div">
-                            <div class="input-group">
-                                <label class="sr-only" for="beltarget">BEL Target</label>
-                                <input id="beltarget" type="text" class="form-control typeahead" placeholder="Target" ng-model="beltarget" autocomplete="off" data-ng-change="doSourceQuery()" data-ng-model-options="{debounce: 300}">
-                                <span class="input-group-btn">    
-                                        <button class="btn btn-primary" data-ng-click="toggleTargetTemplate()">T</button>
-                                        <button class="btn btn-primary" data-ng-click="toggleTargetSearch()">S</button>
-                                </span>
-                                <!-- .input-group-btn -->
-                            </div>
-                            <div id="target-templatebox" class="template-box" style="display: none;">
-                                <!-- might be better to create template for it later -->
-                                <h3>BEL Template</h3>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> abundances
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> modifications
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> activities
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> processes
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox"> transformations
-                                </label>
-                                <hr />
-                                <div>
-                                    <p>Output</p>
-                                </div>
-                                <hr />
-                                <div class="text-center">
-                                    <button class="btn btn-primary text-center">Select</button>
-                                </div>
-                                <!-- .text-center -->
-                            </div>
-                            <!-- #target-templatebox.template-box -->
-                            <div id="target-searchbox" class="search-box" style="display: none;">
-                                <!-- might be better to create template for it later -->
-                                <h3>Entity Search</h3>
-                            </div>
-                            <!-- #target-searchbox.search-box -->
-                        </div>
-                        <!-- #bel-target-div.col-xs-5 -->
-                    </div>
-                    <!-- #bel-source-div.col-xs-12 -->
-                </fieldset>
-            </div>
-            <!-- .form-group -->
-        </div>
-        <!-- .col-xs-10.col-xs-offset-1 -->
+<section id="bel-statement" data-ng-controller="belStatementFormController">
+    <div class="col-sm-12">
+        <h3>BEL Statement</h3>
     </div>
-    <!-- .bottom30 -->
-
-    <!-- Collapsible entity search and template selection -->
-
-
-    <div class="col-xs-10 col-xs-offset-1">
-        <a href="" class="btn btn-primary" data-toggle="collapse" data-target="#entity_search_collapse" aria-expanded="false" aria-controls="entity_search_collapse">Advanced BEL Entity Search and Template Selection</a>
-        <div class="collapse" id="entity_search_collapse">
-            <div class="well panel panel-primary" role="tabpanel">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="" aria-controls="home" role="tab" data-toggle="tab" data-target="#entity_search_pane">Entity Search</a>
-                    </li>
-                    <li role="presentation"><a href="" aria-controls="home" role="tab" data-toggle="tab" data-target="#bel_template_pane">Templates</a>
-                    </li>
-                </ul>
-                <!-- /.nav nav-tabs -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="entity_search_pane">
-                        <h2>Entity Search</h2>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div role="tabpanel" class="tab-pane fade" id="bel_template_pane">
-                        <h2>BEL Template</h2>
-                    </div>
-                    <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-            </div>
+    <!-- .col-sm-12 -->
+    <div id="bel-source-div" class="col-sm-5">
+        <div class="input-group">
+            <label class="sr-only" for="belsource">BEL Source</label>
+            <input id="belsource" class="form-control typeahead" placeholder="Source" data-ng-model="belSSource" autocomplete="on" data-ng-change="doSourceQuery()" data-ng-model-options="{debounce: 300}"></input>
+            <span class="input-group-btn">
+                    <button class="btn btn-primary" data-ng-click="toggleSourceTemplate()">T</button>
+                    <button class="btn btn-primary" data-ng-click="toggleSourceSearch()">S</button>
+                </span>
+            <!-- span.input-group-btn -->
         </div>
-        <!-- /.collapse -->
+        <!-- .input-group -->
+        <div id="source-templatebox" class="template-box" style="display: none;">
+            <!-- might be better to create template for it later -->
+            <h3>BEL Template</h3>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> abundances
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> modifications
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> activities
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> processes
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> transformations
+                </label>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-sm-12">
+                <p>Output</p>
+            </div>
+            <hr />
+            <div class="text-center">
+                <button class="btn btn-primary text-center">Select</button>
+            </div>
+            <!-- .text-center -->
+        </div>
+        <!-- #source-templatebox.template-box -->
+        <div id="source-searchbox" class="search-box" style="display: none;">
+            <!-- might be better to create template for it later -->
+            <h3>Entity Search</h3>
+        </div>
+        <!-- #source-searchbox.search-box -->
     </div>
-    <!-- /.col-xs-10 col-xs-offset-1 -->
+    <!-- #bel-source-div.col-sm-5 -->
+    <div id="bel-relation-div" class="col-sm-2">
+        <label class="sr-only" for="belrelation">BEL Relation</label>
+        <select class="form-control" id="belrelation" data-ng-model="belSRelations" data-ng-options="relation as relation.label for relation in relations" style="margin-top: 4px;" data-ng-change="changeRelation()">
+        </select>
+    </div>
+    <!-- #bel-relation-div.col-sm-2 -->
+    <div id="bel-target-div" class="col-sm-5">
+        <div class="input-group">
+            <label class="sr-only" for="beltarget">BEL Target</label>
+            <input id="beltarget" type="text" class="form-control typeahead" placeholder="Target" data-ng-model="beltarget" autocomplete="off" data-ng-change="doSourceQuery()" data-ng-model-options="{debounce: 300}">
+            <span class="input-group-btn">
+                    <button class="btn btn-primary" data-ng-click="toggleTargetTemplate()">T</button>
+                    <button class="btn btn-primary" data-ng-click="toggleTargetSearch()">S</button>
+                </span>
+            <!-- .input-group-btn -->
+        </div>
+        <!-- .input-group -->
+        <div id="target-templatebox" class="template-box" style="display: none;">
+            <!-- might be better to create template for it later -->
+            <h3>BEL Template</h3>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> abundances
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> modifications
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> activities
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> processes
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> transformations
+                </label>
+            </div>
+            <div class="col-md-4">
 
-
-</form>
+            </div>
+            <div class="col-sm-12">
+                <p>Output</p>
+            </div>
+            <hr />
+            <div class="text-center">
+                <button class="btn btn-primary text-center">Select</button>
+            </div>
+            <!-- .text-center -->
+        </div>
+        <!-- #target-templatebox.template-box -->
+        <div id="target-searchbox" class="search-box" style="display: none;">
+            <!-- might be better to create template for it later -->
+            <h3>Entity Search</h3>
+        </div>
+        <!-- #target-searchbox.search-box -->
+    </div>
+    <!-- #bel-target-div.col-sm-5 -->
+</section>
+<!-- section#bel-statement -->

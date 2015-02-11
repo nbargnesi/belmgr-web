@@ -1,42 +1,56 @@
-<form name="belstatement_form" ng-controller="belStatementFormController" ng-submit="submitForm()" novalidate>
-
-
-
-    <!-- Citation -->
-    <div>
-        <div class="col-xs-10 col-xs-offset-1">
-            <div class="form-group">
-                <fieldset>
-                    <legend>Citation</legend>
-                    <div class="col-xs-2">
-                        <label for="citation_type">Citation Type</label>
-                        <select class="form-control" id="citation_type" ng-model="citation_type" ng-options="citation_type as citation_type.label for citation_type in citation_types">
-                        </select>
-                    </div>
-                    <div class="col-xs-8">
-                        <label for="citation_name">Name</label>
-                        <input type="text" class="form-control" id="citation_ref" placeholder="Citation Name" ng-model="citation_name">
-                    </div>
-
-                    <div class="col-xs-2">
-                        <label for="citation_ref">PubDate</label>
-                        <input type="date" class="form-control" id="citation_pubdate" ng-model="citation_pubdate" placeholder="mm/dd/yyyy">
-                    </div>
-                    <div class="col-xs-12">
-                        <label for="citation_ref">Reference</label>
-                        <input type="text" class="form-control" id="citation_ref" placeholder="Citation Reference" ng-model="citation_ref">
-                    </div>
-                    <div class="col-xs-12">
-                        <label for="citation_ref">Authors</label>
-                        <input type="text" class="form-control" id="citation_authors" ng-model="citation_authors" placeholder="separate authors with a semicolon ';'">
-                    </div>
-                    <div class="col-xs-12">
-                        <label for="citation_ref">Comments</label>
-                        <input type="text" class="form-control" id="citation_comments" ng-model="citation_comments">
-                    </div>
-                </fieldset>
-            </div>
-        </div>
+<div id="bel-citation" data-ng-controller="belCitationFormController">
+    <div class="col-sm-12">
+        <h3>Citation</h3>
     </div>
-
-</form>
+    <!-- .col-sm-12 -->
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="citation_type">Citation Type</label>
+            <select class="form-control" id="citation_type" data-ng-model="citationType" data-ng-options="citationType as citationType.label for citationType in citationTypeList" data-ng-change="changeCitationType()">
+            </select>
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- .col-sm-2 -->
+    <div class="col-sm-8">
+        <div class="form-group">
+            <label for="citation_name">Name</label>
+            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Name" data-ng-model="citationName" data-ng-change="changeCitationName()">
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- .col-sm-8 -->
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label for="citation_ref">PubDate</label>
+            <input type="date" class="form-control" id="citation_pubdate" data-ng-model="citationPublishDate" placeholder="mm/dd/yyyy" data-ng-change="changeCitationPublishDate()">
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- col-sm-2 -->
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="citation_ref">Reference</label>
+            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Reference" data-ng-model="citationRef" data-ng-change="changeCitationRef()">
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- .col-sm-12 -->
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="citation_ref">Authors</label>
+            <input type="text" class="form-control" id="citation_authors" data-ng-model="citationAuthors" placeholder="separate authors with a semicolon ';'" data-ng-change="changeCitationAuthors()">
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- .col-sm-12 -->
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="citation_ref">Comments</label>
+            <input type="text" class="form-control" id="citation_comments" data-ng-model="citationComments" data-ng-change="changeCitationComments()">
+        </div>
+        <!-- .form-group -->
+    </div>
+    <!-- .col-sm-12 -->
+</div>
+<!-- #bel-citation -->

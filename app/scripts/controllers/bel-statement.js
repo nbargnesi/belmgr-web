@@ -2,17 +2,36 @@
 
 /**
  * @ngdoc function
- * @name belmgrWebApp.controller:NewbelCtrl
+ * @name belmgrWebApp.controller:belStatementFormController
  * @description
- * # NewbelCtrl
+ * # belStatementFormController
  * Controller of the belmgrWebApp
  */
 angular.module('belmgrWebApp')
-    .controller('NewbelCtrl', function($scope) {
+    .controller('belStatementFormController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
+        
+        $scope.$watch(function(){
+            return $scope.bels.belsource;
+        }, function(newValue){
+            console.log(newValue);
+            modelNewBel.belStatement.source = newValue;
+        });
+
+        $scope.$watch(function(){
+            return $scope.bels.beltarget;
+        }, function(newValue){
+            console.log(newValue);
+            modelNewBel.belStatement.target = newValue;
+        });
+
+        $scope.bels = {
+            belsource: '',
+            beltarget: ''
+        };
 
         // content and values for the relations dropdown
         $scope.relations = [{
-            label: 'Relation',
+            label: '--Relation--',
             value: ''
         }, {
             label: 'increases',
@@ -115,26 +134,31 @@ angular.module('belmgrWebApp')
         }];
 
         // Set up the default value for the relations dropdown box
-        $scope.belrelation = $scope.relations[0];
+        $scope.belSRelations = $scope.relations[0];
+
+        // ng-change function to update the relation in service
+        $scope.changeRelation = function(){
+            modelNewBel.belStatement.relation = $scope.belSRelations.label;
+        };
 
         // ng-click functions that take care of the template/search switch
         // will need refactor if using the template later
-        $scope.toggleSourceTemplate = function(){
+        $scope.toggleSourceTemplate = function() {
             $('#source-searchbox').hide();
             $('#source-templatebox').toggle();
         };
 
-        $scope.toggleSourceSearch = function(){
+        $scope.toggleSourceSearch = function() {
             $('#source-templatebox').hide();
             $('#source-searchbox').toggle();
         };
 
-        $scope.toggleTargetTemplate = function(){
+        $scope.toggleTargetTemplate = function() {
             $('#target-searchbox').hide();
             $('#target-templatebox').toggle();
         };
 
-        $scope.toggleTargetSearch = function(){
+        $scope.toggleTargetSearch = function() {
             $('#target-templatebox').hide();
             $('#target-searchbox').toggle();
         };
@@ -170,18 +194,23 @@ angular.module('belmgrWebApp')
         $scope.targetInput = angular.element('#beltarget');
 
         $scope.selected = function(event, datum, name) {
+
             var element = null;
+
             if (name === 'belsource') {
                 element = $scope.sourceInput[0];
+                $scope.bels.belsource = datum.value;
             } else if (name === 'beltarget') {
                 element = $scope.targetInput[0];
+                $scope.bels.beltarget = datum.value;
             }
             if (element === null) {
                 return;
+            } else {
+                $scope.$digest();
             }
             var actions = datum.actions;
             var cursorpos = -1;
-
             function moveCur(action) {
                 if (action.move_cursor) {
                     cursorpos = action.move_cursor.position;
@@ -199,17 +228,21 @@ angular.module('belmgrWebApp')
             var datums = [];
             /* convert completion to datum */
             function addDatum(completion) {
-                    // looks odd but "completion" is a key in the actual completion object
-                    var completionType = completion.completion.type;
+
+                    var completionType = completion.type;
                     var value = belhop.complete.apply(completion, input);
                     var datum = {
                         value: value,
-                        actions: completion.completion.actions
+                        actions: completion.actions
                     };
                     datums.push(datum);
                 }
                 /* add a datum for each completion */
-            completions.forEach(addDatum);
+
+            // completions.completions is the array that holds the data that 
+            // we are going to processs through addDatum function
+            completions.completions.forEach(addDatum);
+
             return datums;
         };
 
@@ -233,7 +266,9 @@ angular.module('belmgrWebApp')
             // treat end of input element selection as API caret position
             var selectionEnd = $scope.sourceInput[0].selectionEnd;
             console.log('at position ' + selectionEnd + ' querying "' + query + '"');
-            belhop.complete.getCompletions(query, selectionEnd, _cb);
+            if (query !== undefined && query.length > 0) {
+                belhop.complete.getCompletions(query, selectionEnd, _cb);
+            }
         };
 
         $scope.doTargetQuery = function(query, cb) {
@@ -256,7 +291,9 @@ angular.module('belmgrWebApp')
             // treat end of input element selection as API caret position
             var selectionEnd = $scope.targetInput[0].selectionEnd;
             console.log('at position ' + selectionEnd + ' querying "' + query + '"');
-            belhop.complete.getCompletions(query, selectionEnd, _cb);
+            if (query !== undefined && query.length > 0) {
+                belhop.complete.getCompletions(query, selectionEnd, _cb);
+            }
         };
 
         $scope.sourceInput.typeahead(null, {
@@ -318,4 +355,4 @@ angular.module('belmgrWebApp')
             ta.dropdown.update(curval);
             ta.dropdown.open();
         });
-    });
+    }]);

@@ -81,7 +81,12 @@
     <script src="bower_components/handlebars/handlebars.js"></script>
     <script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
     <!-- endbower -->
-    <script src="http://build.openbel.org/browse/BH-BN/latestSuccessful/artifact/JOB1/nonminified/belhop.js"></script>
+    
+    <!-- <script src="http://build.openbel.org/browse/BH-BN/latestSuccessful/artifact/JOB1/nonminified/belhop.js"></script> -->
+    <script src="scripts/belhop.js"></script>
+
+    <!-- local load for testing purposes -->
+    
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -90,6 +95,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/search.js"></script>
+        <script src="scripts/controllers/bel-edit.js"></script>
         <script src="scripts/controllers/bel-statement.js"></script>
         <script src="scripts/controllers/bel-citation.js"></script>
         <script src="scripts/controllers/bel-annotations.js"></script>
@@ -99,6 +105,7 @@
         <script src="scripts/directives/directives.js"></script>
         <script src="scripts/services/search.js"></script>
         <script src="scripts/services/edit-bel.js"></script>
+        <script src="scripts/services/model-newbel.js"></script>
         <!-- endbuild -->
 </body>
 </html>
