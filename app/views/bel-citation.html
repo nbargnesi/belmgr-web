@@ -6,7 +6,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="citation_type">Citation Type</label>
-            <select class="form-control" id="citation_type" data-ng-model="citationType" data-ng-options="citationType as citationType.label for citationType in citationTypeList" data-ng-change="changeCitationType()">
+            <select class="form-control" id="citation_type" data-ng-model="citationType" data-ng-options="citationType as citationType.label for citationType in citationTypeList" data-ng-change="changeCitationType()" data-ng-required="true">
             </select>
         </div>
         <!-- .form-group -->
@@ -15,7 +15,7 @@
     <div class="col-sm-8">
         <div class="form-group">
             <label for="citation_name">Name</label>
-            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Name" data-ng-model="citationName" data-ng-change="changeCitationName()">
+            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Name" data-ng-model="citationName" data-ng-change="changeCitationName()" data-ng-disabled="selectPubMed" data-ng-required="true">
         </div>
         <!-- .form-group -->
     </div>
@@ -23,7 +23,7 @@
     <div class="col-sm-2">
         <div class="form-group">
             <label for="citation_ref">PubDate</label>
-            <input type="date" class="form-control" id="citation_pubdate" data-ng-model="citationPublishDate" placeholder="mm/dd/yyyy" data-ng-change="changeCitationPublishDate()">
+            <input type="date" class="form-control" id="citation_pubdate" data-ng-model="citationPublishDate" placeholder="mm/dd/yyyy" data-ng-change="changeCitationPublishDate()" data-ng-disabled="selectPubMed">
         </div>
         <!-- .form-group -->
     </div>
@@ -31,7 +31,7 @@
     <div class="col-sm-12">
         <div class="form-group">
             <label for="citation_ref">Reference</label>
-            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Reference" data-ng-model="citationRef" data-ng-change="changeCitationRef()">
+            <input type="text" class="form-control" id="citation_ref" placeholder="Citation Reference" data-ng-model="citationRef" data-ng-change="changeCitationRef()" data-ng-required="true">
         </div>
         <!-- .form-group -->
     </div>
@@ -39,7 +39,7 @@
     <div class="col-sm-12">
         <div class="form-group">
             <label for="citation_ref">Authors</label>
-            <input type="text" class="form-control" id="citation_authors" data-ng-model="citationAuthors" placeholder="separate authors with a semicolon ';'" data-ng-change="changeCitationAuthors()">
+            <input type="text" class="form-control" id="citation_authors" data-ng-model="citationAuthors" placeholder="separate authors with a semicolon ';'" data-ng-change="changeCitationAuthors()" data-ng-disabled="selectPubMed">
         </div>
         <!-- .form-group -->
     </div>

@@ -10,6 +10,62 @@
 angular.module('belmgrWebApp')
     .controller('belStatementFormController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
         
+
+        /*
+        
+            var onErr = function() {
+                cb([]);
+            };
+
+
+            var onSucc = function(completions) {
+                var datums = $scope.convertCompletions(query, completions);
+                cb(datums);
+            };
+
+            var _cb = {
+                error: onErr,
+                success: onSucc
+            };
+
+            var selectionEnd = $scope.sourceInput[0].selectionEnd;
+            console.log('at position ' + selectionEnd + ' querying "' + query + '"');
+            if (query !== undefined && query.length > 0) {
+                belhop.complete.getCompletions(query, selectionEnd, _cb);
+            }
+
+
+         */
+
+
+        $scope.testChange = function (query) {
+            
+            // pure angular autocomplete to replace the typeahead
+            
+            var onErr = function() {
+                //cb([]);
+                $scope.belData = '';
+            };
+
+
+            var onSucc = function(completions) {
+                var datums = $scope.convertCompletions(query, completions);
+                $scope.belData = datums;
+            };
+
+            var _cb = {
+                error: onErr,
+                success: onSucc
+            };
+
+            var selectionEnd = angular.element('autocomplete input')[0].selectionEnd;
+            console.log('at position ' + selectionEnd + ' querying "' + query + '"');
+            if (query !== undefined && query.length > 0) {
+                belhop.complete.getCompletions(query, selectionEnd, _cb);
+            }
+
+        };
+
         $scope.$watch(function(){
             return $scope.bels.belsource;
         }, function(newValue){
