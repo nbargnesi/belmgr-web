@@ -62,7 +62,7 @@ angular.module('belmgrWebApp')
         };
 
         // ng-model of citation publish date
-        $scope.citationPublishDate = '';
+        $scope.citationPublishDate = new Date();
 
         $scope.changeCitationPublishDate = function() {
             modelNewBel.belCitation.publishDate = $filter('date')($scope.citationPublishDate, 'yyyy-MM-dd');

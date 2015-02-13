@@ -11,9 +11,6 @@ angular.module('belmgrWebApp')
     .controller('belMetadataFormController', ['$scope', '$filter', 'modelNewBel', function($scope, $filter, modelNewBel) {
 
         $scope.reviewStatusSets = [{
-            id: 0,
-            label: '--Review Status--'
-        }, {
             id: 1,
             label: 'Draft'
         }, {
@@ -40,7 +37,7 @@ angular.module('belmgrWebApp')
             modelNewBel.belMetadata.author = $scope.author;
         };
 
-        $scope.createdDate = '';
+        $scope.createdDate = new Date();
         // ng-change to update the createdDate value into the service
         $scope.changeCreatedDate = function() {
             modelNewBel.belMetadata.createdDate = $filter('date')($scope.createdDate, 'yyyy-MM-dd');
@@ -52,7 +49,7 @@ angular.module('belmgrWebApp')
             modelNewBel.belMetadata.reviewer = $scope.reviewer;
         };
 
-        $scope.reviewedDate = '';
+        $scope.reviewedDate = new Date();
         // ng-change to update the reviewedDate value into the service
         $scope.changeReviewedDate = function() {
             modelNewBel.belMetadata.reviewedDate = $filter('date')($scope.reviewedDate, 'yyyy-MM-dd');

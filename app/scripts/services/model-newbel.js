@@ -27,11 +27,11 @@ angular.module('belmgrWebApp')
             belAnnotation = {
                 belSummaryText: '',
                 structuredAnnotations: {
-                    annotationTypes: '',
+                    annotationType: '',
                     annotation: ''
                 },
                 freeAnnotations: {
-                    annotationTypes: '',
+                    annotationType: '',
                     annotation: ''
                 }
             },
@@ -78,14 +78,14 @@ angular.module('belmgrWebApp')
             // the model holds the data for bel annotation
             belAnnotation: {
                 belSummaryText: '',
-                structuredAnnotations: {
-                    annotationTypes: '',
+                structuredAnnotations: [{
+                    annotationType: '',
                     annotation: ''
-                },
-                freeAnnotations: {
-                    annotationTypes: '',
+                }],
+                freeAnnotations: [{
+                    annotationType: '',
                     annotation: ''
-                }
+                }]
             },
             // the model holds the data for bel metadata
             belMetadata: {
