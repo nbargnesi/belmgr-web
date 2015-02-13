@@ -47,9 +47,11 @@ angular.module('belmgrWebApp')
         // ng-change to update the reviewer value into the service
         $scope.changeReviewer = function() {
             modelNewBel.belMetadata.reviewer = $scope.reviewer;
+            $scope.reviewedDate = new Date();
+            modelNewBel.belMetadata.reviewedDate = $filter('date')($scope.reviewedDate, 'yyyy-MM-dd');
         };
 
-        $scope.reviewedDate = new Date();
+        $scope.reviewedDate = '';
         // ng-change to update the reviewedDate value into the service
         $scope.changeReviewedDate = function() {
             modelNewBel.belMetadata.reviewedDate = $filter('date')($scope.reviewedDate, 'yyyy-MM-dd');

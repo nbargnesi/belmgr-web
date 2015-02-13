@@ -42,3 +42,22 @@ angular.module('belmgrWebApp')
 
         };
     });
+
+
+// <input focus-index="{{$index}}" />
+angular.module('belmgrWebApp')
+    .directive('focusIndex', function() {
+        return {
+            link: function(scope, element, attrs) {
+                scope.$watch(function() {
+                    return scope.focusOn;
+                }, function(newVal) {
+                    if (scope.focusOnType === 'free') {
+                        $('input[focus-index="' + newVal + '"]').focus();
+                    } else if (scope.focusOnType === 'structured') {
+                        $('select[focus-index="' + newVal + '"]').focus();
+                    }
+                });
+            }
+        };
+    });

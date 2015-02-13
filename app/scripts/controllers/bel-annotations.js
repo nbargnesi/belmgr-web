@@ -67,6 +67,8 @@ angular.module('belmgrWebApp')
         $scope.structuredAnnotationBlur = function(index) {
             if ($scope.structuredAnnotations[index].annotation.length !== 0 && !$scope.structuredAnnotations[index + 1]) {
                 $scope.addStructuredAnnotation(index);
+                $scope.focusOnType = 'structured';
+                $scope.focusOn = index + 1;
             }
         };
 
@@ -106,6 +108,8 @@ angular.module('belmgrWebApp')
         $scope.freeAnnotationBlur = function(index) {
             if ($scope.freeAnnotations[index].annotation.length !== 0 && !$scope.freeAnnotations[index + 1]) {
                 $scope.addFreeAnnotation(index);
+                $scope.focusOnType = 'free';
+                $scope.focusOn = index + 1;
             }
         };
 

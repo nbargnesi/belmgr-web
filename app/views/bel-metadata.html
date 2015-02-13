@@ -42,7 +42,7 @@
     <div class="col-sm-3">
         <div class="form-group">
             <label for="">Date Reviewed</label>
-            <input class="form-control" type="date" data-ng-model="reviewedDate" data-ng-change="changeReviewedDate()" />
+            <input class="form-control" type="date" data-ng-model="reviewedDate" data-ng-change="changeReviewedDate()" data-ng-disabled="!reviewer" />
         </div>
         <!-- .form-group -->
     </div>

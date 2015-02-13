@@ -27,7 +27,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label for="s-annotation-type">Annotation Type</label>
-                <select name="s-annotation-type" class="form-control" id="" data-ng-model="annotation.annotationType" data-ng-options="annotationType as annotationType.label for annotationType in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)">
+                <select name="s-annotation-type" class="form-control" id="" data-ng-model="annotation.annotationType" data-ng-options="annotationType as annotationType.label for annotationType in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)" focus-index="{{$index}}">
                 </select>
             </div>
             <!-- .form-group -->
@@ -43,9 +43,7 @@
         <!-- .col-sm-8 -->
         <div class="col-sm-1" style="padding-top: 24px;">
             <!--<button class="btn btn-primary" data-ng-click="addStructuredAnnotation()">+</button>-->
-            <button class="btn btn-danger" data-ng-click="removeStructuredAnnotation($index)" data-ng-if="!$first">
-                <i class="glyphicon glyphicon-minus"></i>
-            </button>
+            <button class="btn btn-danger" data-ng-click="removeStructuredAnnotation($index)" data-ng-if="!$first">-</button>
         </div>
         <!-- .col-sm-1 -->
     </div>
@@ -62,7 +60,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label for="">Annotation Type</label>
-                <input class="form-control" data-ng-model="annotation.annotationType" data-ng-change="changeFreeAnnotationType($index)"></input>
+                <input class="form-control" data-ng-model="annotation.annotationType" data-ng-change="changeFreeAnnotationType($index)" focus-index="{{$index}}"></input>
             </div>
             <!-- .form-group -->
         </div>
