@@ -9,14 +9,16 @@
  */
 angular.module('belmgrWebApp')
     .controller('belAnnotationFormController', ['$scope', '$http', 'modelNewBel', function($scope, $http, modelNewBel) {
-
+        /**
+         * @function init
+         * @description an ng-init function to update the options calling annotation api from belhop
+         */
         $scope.init = function() {
 
             var onErr = function() {
-                
+
             };
 
-            /* invoke callback with converted completions on success */
             var onSucc = function(annotations) {
                 $scope.structuredAnnotationTypesList = annotations;
                 $scope.structuredAnnotations[0].annotationType = annotations[0].name;
@@ -31,30 +33,52 @@ angular.module('belmgrWebApp')
             belhop.annotations.getTypes(_cb);
         };
 
-        // ng-model of BEL Summary Text
+        /**
+         * @description an ng-model for bel summary text
+         * @type {String}
+         */
         $scope.belSummaryText = '';
 
-        // ng-change to update the Bel Summary Text to the service
+        /**
+         * @function changeBelSummary
+         * @description an ng-change to update the Bel Summary Text to the service
+         */
         $scope.changeBelSummary = function() {
             modelNewBel.belAnnotation.belSummaryText = $scope.belSummaryText;
         };
 
+        /**
+         * @name structuredAnnotations
+         * @description the default object structure for structured annotations
+         * @type {Array}
+         */
         $scope.structuredAnnotations = [{
             annotationType: '',
             annotation: ''
         }];
 
-        // ng-change to update the value into service
+        /**
+         * @function changeStructuredAnnotationType
+         * @description ng-change to update the value into service
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.changeStructuredAnnotationType = function(index) {
             modelNewBel.belAnnotation.structuredAnnotations[index].annotationType = $scope.structuredAnnotations[index].annotationType;
         };
 
-        // ng-change to update the structrue annotation value to the service
+        /**
+         * @function changeStructuredAnnotation
+         * @description ng-change to update the structrue annotation value to the service
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.changeStructuredAnnotation = function(index) {
             modelNewBel.belAnnotation.structuredAnnotations[index].annotation = $scope.structuredAnnotations[index].annotation;
         };
 
-        // ng-click to add a new structured annotation group
+        /**
+         * @function addStructuredAnnotation
+         * @description ng-click to add a new structured annotation group
+         */
         $scope.addStructuredAnnotation = function() {
             modelNewBel.belAnnotation.structuredAnnotations.push({
                 annotationType: $scope.structuredAnnotationTypesList[0].name,
@@ -66,12 +90,20 @@ angular.module('belmgrWebApp')
             });
         };
 
-        // ng-click to remove a new structured annotation group
+        /**
+         * @function removeStructuredAnnotation
+         * @description ng-click to remove a new structured annotation group
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.removeStructuredAnnotation = function(index) {
             modelNewBel.belAnnotation.structuredAnnotations.splice(index, 1);
             $scope.structuredAnnotations.splice(index, 1);
         };
-
+        /**
+         * @function structuredAnnotationBlur
+         * @description ng-blur function to add new entry of structured annotation
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.structuredAnnotationBlur = function(index) {
             if ($scope.structuredAnnotations[index].annotation.length !== 0 && !$scope.structuredAnnotations[index + 1]) {
                 $scope.addStructuredAnnotation(index);
@@ -80,22 +112,37 @@ angular.module('belmgrWebApp')
             }
         };
 
+        /**
+         * @name freeAnnotations
+         * @description the default object structure for free annotations
+         * @type {Array}
+         */
         $scope.freeAnnotations = [{
             annotationType: '',
             annotation: ''
         }];
 
-        // ng-change to update the value into service
+        /**
+         * @function changeFreeAnnotationType
+         * @description ng-change to update the value into service
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.changeFreeAnnotationType = function(index) {
             modelNewBel.belAnnotation.freeAnnotations[index].annotationType = $scope.freeAnnotations[index].annotationType;
         };
 
-        // ng-change to update the free annotation value to the service
+        /**
+         * @function changeFreeAnnotation
+         * @description ng-change to update the free annotation value to the service
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.changeFreeAnnotation = function(index) {
             modelNewBel.belAnnotation.freeAnnotations[index].annotation = $scope.freeAnnotations[index].annotation;
         };
-
-        // ng-click to add a new free annotation group
+        /**
+         * @function addFreeAnnotation
+         * @description ng-click to add a new free annotation group
+         */
         $scope.addFreeAnnotation = function() {
             modelNewBel.belAnnotation.freeAnnotations.push({
                 annotationType: '',
@@ -107,12 +154,20 @@ angular.module('belmgrWebApp')
             });
         };
 
-        // ng-click to remove a new free annotation group
+        /**
+         * @function removeFreeAnnotation
+         * @description ng-click to remove a new free annotation group
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.removeFreeAnnotation = function(index) {
             modelNewBel.belAnnotation.freeAnnotations.splice(index, 1);
             $scope.freeAnnotations.splice(index, 1);
         };
-
+        /**
+         * @function freeAnnotationBlur
+         * @description ng-blur function to add new entry of free annotation
+         * @param  {number} index value from ng-repeat's $index to identify the target model
+         */
         $scope.freeAnnotationBlur = function(index) {
             if ($scope.freeAnnotations[index].annotation.length !== 0 && !$scope.freeAnnotations[index + 1]) {
                 $scope.addFreeAnnotation(index);
