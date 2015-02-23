@@ -8,7 +8,28 @@
  * Controller of the belmgrWebApp
  */
 angular.module('belmgrWebApp')
-    .controller('belAnnotationFormController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
+    .controller('belAnnotationFormController', ['$scope', '$http', 'modelNewBel', function($scope, $http, modelNewBel) {
+
+        $scope.init = function() {
+
+            var onErr = function() {
+                
+            };
+
+            /* invoke callback with converted completions on success */
+            var onSucc = function(annotations) {
+                $scope.structuredAnnotationTypesList = annotations;
+                $scope.structuredAnnotations[0].annotationType = annotations[0].name;
+                $scope.$apply();
+            };
+
+            var _cb = {
+                error: onErr,
+                success: onSucc
+            };
+
+            belhop.annotations.getTypes(_cb);
+        };
 
         // ng-model of BEL Summary Text
         $scope.belSummaryText = '';
@@ -18,27 +39,14 @@ angular.module('belmgrWebApp')
             modelNewBel.belAnnotation.belSummaryText = $scope.belSummaryText;
         };
 
-        // list of structured annotation types
-        $scope.structuredAnnotationTypesList = [{
-            id: 0,
-            label: 'Structured Annotations Type 1'
-        }, {
-            id: 1,
-            label: 'Structured Annotations Type 2'
-        }];
-
         $scope.structuredAnnotations = [{
-            annotationType: $scope.structuredAnnotationTypesList[0],
+            annotationType: '',
             annotation: ''
         }];
 
-        // set up default values for annotation type in the service also in the model
-        modelNewBel.belAnnotation.structuredAnnotations[0].annotationType = $scope.structuredAnnotationTypesList[0].label;
-        $scope.structuredAnnotationType = $scope.structuredAnnotationTypesList[0];
-
         // ng-change to update the value into service
         $scope.changeStructuredAnnotationType = function(index) {
-            modelNewBel.belAnnotation.structuredAnnotations[index].annotationType = $scope.structuredAnnotations[index].annotationType.label;
+            modelNewBel.belAnnotation.structuredAnnotations[index].annotationType = $scope.structuredAnnotations[index].annotationType;
         };
 
         // ng-change to update the structrue annotation value to the service
@@ -49,11 +57,11 @@ angular.module('belmgrWebApp')
         // ng-click to add a new structured annotation group
         $scope.addStructuredAnnotation = function() {
             modelNewBel.belAnnotation.structuredAnnotations.push({
-                annotationType: $scope.structuredAnnotationTypesList[0].label,
+                annotationType: $scope.structuredAnnotationTypesList[0].name,
                 annotation: ''
             });
             $scope.structuredAnnotations.push({
-                annotationType: $scope.structuredAnnotationTypesList[0],
+                annotationType: $scope.structuredAnnotationTypesList[0].name,
                 annotation: ''
             });
         };

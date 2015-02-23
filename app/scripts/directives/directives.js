@@ -55,7 +55,7 @@ angular.module('belmgrWebApp')
                     if (scope.focusOnType === 'free') {
                         $('input[focus-index="' + newVal + '"]').focus();
                     } else if (scope.focusOnType === 'structured') {
-                        $('select[focus-index="' + newVal + '"]').focus();
+                        $('select.structuredAnnotations[focus-index="' + newVal + '"]').focus();
                     }
                 });
             }

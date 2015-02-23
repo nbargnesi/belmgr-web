@@ -1,4 +1,4 @@
-<div id="bel-annotation" data-ng-controller="belAnnotationFormController">
+<div id="bel-annotation" data-ng-controller="belAnnotationFormController" data-ng-init="init()">
     <div class="col-sm-12">
         <h3>Annotation</h3>
     </div>
@@ -23,12 +23,12 @@
         <h4>Structured Annotations</h4>
     </div>
     <!-- .col-sm-12 -->
+
     <div data-ng-repeat="annotation in structuredAnnotations">
         <div class="col-sm-3">
             <div class="form-group">
-                <label for="s-annotation-type">Annotation Type</label>
-                <select name="s-annotation-type" class="form-control" id="" data-ng-model="annotation.annotationType" data-ng-options="annotationType as annotationType.label for annotationType in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)" focus-index="{{$index}}">
-                </select>
+                <label for="structuredAnnotations">Annotation Type</label>
+                <select name="" class="form-control structuredAnnotations" data-ng-model="annotation.annotationType" data-ng-options="type.name as type.name for type in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)" focus-index="{{$index}}" /></select>
             </div>
             <!-- .form-group -->
         </div>
