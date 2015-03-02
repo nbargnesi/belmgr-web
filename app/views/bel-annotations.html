@@ -23,7 +23,7 @@
         <h4>Structured Annotations</h4>
     </div>
     <!-- .col-sm-12 -->
-    
+
     <div data-ng-repeat="annotation in structuredAnnotations">
         <div class="col-sm-3">
             <div class="form-group">
@@ -36,7 +36,7 @@
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="s-annotation">Annotation</label>
-                <input name="s-annotation" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="doSourceQuery()" repeat-typeahead data-ng-blur="structuredAnnotationBlur(annotation.annotation, $index)" /><!--   -->
+                <input name="s-annotation" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="doSourceQuery()" repeat-typeahead data-ng-blur="structuredAnnotationBlur(annotation.annotation, $index)"></input>
             </div>
             <!-- .form-group -->
         </div>
