@@ -23,7 +23,7 @@
         <h4>Structured Annotations</h4>
     </div>
     <!-- .col-sm-12 -->
-
+    
     <div data-ng-repeat="annotation in structuredAnnotations">
         <div class="col-sm-3">
             <div class="form-group">
@@ -36,13 +36,13 @@
         <div class="col-sm-8">
             <div class="form-group">
                 <label for="s-annotation">Annotation</label>
-                <input name="s-annotation" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="changeStructuredAnnotation($index)" data-ng-blur="structuredAnnotationBlur($index)" />
+                <input name="s-annotation" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="doSourceQuery()" repeat-typeahead data-ng-blur="structuredAnnotationBlur(annotation.annotation, $index)" /><!--   -->
             </div>
             <!-- .form-group -->
         </div>
         <!-- .col-sm-8 -->
         <div class="col-sm-1" style="padding-top: 24px;">
-            <!--<button class="btn btn-primary" data-ng-click="addStructuredAnnotation()">+</button>-->
+            <!-- <button class="btn btn-primary" data-ng-click="addStructuredAnnotation()">+</button> -->
             <button class="btn btn-danger" data-ng-click="removeStructuredAnnotation($index)" data-ng-if="!$first">-</button>
         </div>
         <!-- .col-sm-1 -->
@@ -51,7 +51,6 @@
     <!-- End Structured Annotations -->
 
     <!-- Free Annotations -->
-
     <div class="col-sm-12">
         <h4>Free Annotations</h4>
     </div>

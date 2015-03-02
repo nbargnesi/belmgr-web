@@ -14,7 +14,14 @@ angular.module('belmgrWebApp')
          * @description an ng-init function to update the options calling annotation api from belhop
          */
         $scope.init = function() {
+            $scope.structuredAnnotations = [{
+                annotationType: '',
+                annotation: ''
+            }];
+            loadAnnotationTypes();
+        };
 
+        function loadAnnotationTypes() {
             var onErr = function() {
 
             };
@@ -31,7 +38,7 @@ angular.module('belmgrWebApp')
             };
 
             belhop.annotations.getTypes(_cb);
-        };
+        }
 
         /**
          * @description an ng-model for bel summary text
@@ -46,16 +53,6 @@ angular.module('belmgrWebApp')
         $scope.changeBelSummary = function() {
             modelNewBel.belAnnotation.belSummaryText = $scope.belSummaryText;
         };
-
-        /**
-         * @name structuredAnnotations
-         * @description the default object structure for structured annotations
-         * @type {Array}
-         */
-        $scope.structuredAnnotations = [{
-            annotationType: '',
-            annotation: ''
-        }];
 
         /**
          * @function changeStructuredAnnotationType
@@ -75,6 +72,31 @@ angular.module('belmgrWebApp')
             modelNewBel.belAnnotation.structuredAnnotations[index].annotation = $scope.structuredAnnotations[index].annotation;
         };
 
+        $scope.COMPLETION_TEMPLATE = '<p>{{name}}</p>';
+        $scope.sourceInput = angular.element('.s-annotation');
+
+        $scope.doSourceQuery = function(query, cb) {
+            /* invoke callback without suggestions on error */
+            var onErr = function() {
+                cb([]);
+            };
+
+            /* invoke callback with converted completions on success */
+            var onSucc = function(response) {
+                //console.log(response);
+                cb(response);
+            };
+
+            var _cb = {
+                error: onErr,
+                success: onSucc
+            };
+
+            // treat end of input element selection as API caret position
+            if (query !== undefined && query.length > 0) {
+                belhop.annotations.searchByType('clo', query, _cb);
+            }
+        };
         /**
          * @function addStructuredAnnotation
          * @description ng-click to add a new structured annotation group
@@ -104,9 +126,10 @@ angular.module('belmgrWebApp')
          * @description ng-blur function to add new entry of structured annotation
          * @param  {number} index value from ng-repeat's $index to identify the target model
          */
-        $scope.structuredAnnotationBlur = function(index) {
-            if ($scope.structuredAnnotations[index].annotation.length !== 0 && !$scope.structuredAnnotations[index + 1]) {
-                $scope.addStructuredAnnotation(index);
+        $scope.structuredAnnotationBlur = function(model, index) {
+            console.log($scope.structuredAnnotations);
+            if (model.length !== 0 && !$scope.structuredAnnotations[index + 1]) {
+                $scope.addStructuredAnnotation();
                 $scope.focusOnType = 'structured';
                 $scope.focusOn = index + 1;
             }

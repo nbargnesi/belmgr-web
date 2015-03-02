@@ -280,6 +280,7 @@ angular.module('belmgrWebApp')
             /* invoke callback with converted completions on success */
             var onSucc = function(completions) {
                 var datums = $scope.convertCompletions(query, completions);
+                console.log(datums);
                 cb(datums);
             };
 

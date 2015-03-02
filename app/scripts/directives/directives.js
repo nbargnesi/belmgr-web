@@ -61,3 +61,33 @@ angular.module('belmgrWebApp')
             }
         };
     });
+
+angular.module('belmgrWebApp')
+    .directive('repeatTypeahead', function($compile) {
+        return {
+            restrict: 'A',
+            controller: 'belAnnotationFormController',
+            require: 'ngModel',
+            link: function(scope, element, attrs, ngModel) {
+                angular.element(element).typeahead(null, {
+                    name: 's-annotation',
+                    displayKey: 'value',
+                    source: scope.doSourceQuery,
+                    templates: {
+                        empty: null,
+                        suggestion: Handlebars.compile(scope.COMPLETION_TEMPLATE)
+                    }
+                });
+
+                angular.element(element).on('typeahead:selected', updateModel);
+                angular.element(element).on('typeahead:autocompleted', updateModel);
+
+                function updateModel(event, datum, name) {
+                    ngModel.$setViewValue(datum.name);
+                    ngModel.$render();
+                    angular.element(element).typeahead('val', ngModel.$viewValue);
+                    $compile(angular.element(element))(scope);
+                }
+            }
+        };
+    });
