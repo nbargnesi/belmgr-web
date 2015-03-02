@@ -52,10 +52,12 @@ angular.module('belmgrWebApp')
                 scope.$watch(function() {
                     return scope.focusOn;
                 }, function(newVal) {
-                    if (scope.focusOnType === 'free') {
-                        $('input[focus-index="' + newVal + '"]').focus();
-                    } else if (scope.focusOnType === 'structured') {
-                        $('select.structuredAnnotations[focus-index="' + newVal + '"]').focus();
+                    if (typeof newVal === 'number') {
+                        if (scope.focusOnType === 'free') {
+                            $('input[focus-index="' + newVal + '"]').focus();
+                        } else if (scope.focusOnType === 'structured') {
+                            $('select.structuredAnnotations[focus-index="' + newVal + '"]').focus();
+                        }
                     }
                 });
             }
@@ -63,7 +65,7 @@ angular.module('belmgrWebApp')
     });
 
 angular.module('belmgrWebApp')
-    .directive('repeatTypeahead', function($compile) {
+    .directive('repeatTypeahead', function() {
         return {
             restrict: 'A',
             controller: 'belAnnotationFormController',
@@ -86,7 +88,7 @@ angular.module('belmgrWebApp')
                     ngModel.$setViewValue(datum.name);
                     ngModel.$render();
                     angular.element(element).typeahead('val', ngModel.$viewValue);
-                    $compile(angular.element(element))(scope);
+                    scope.changeStructuredAnnotation(angular.element(element).scope().$index);
                 }
             }
         };

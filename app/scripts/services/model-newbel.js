@@ -52,7 +52,20 @@ angular.module('belmgrWebApp')
             var summaryText = (belAnnotation.belSummaryText.length !== 0) ? belAnnotation.belSummaryText : null;
             var evidence = belhop.factory.evidence(statement, citation, annotations, summaryText, belMetadata);
             console.log(evidence);
+            
+            function onErr(){
 
+            }
+
+            function onSucc(response) {
+                console.log(response);
+            }
+
+            var cb = {
+                error: onErr,
+                success: onSucc
+            }
+            belhop.evidence.create(evidence, cb);
             function createAnnotations() {
                 var result = [];
                 belAnnotation.structuredAnnotations.forEach(function(annotation) {

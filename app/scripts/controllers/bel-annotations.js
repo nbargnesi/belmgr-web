@@ -16,6 +16,7 @@ angular.module('belmgrWebApp')
         $scope.init = function() {
             $scope.structuredAnnotations = [{
                 annotationType: '',
+                annotationTypePrefix: '',
                 annotation: ''
             }];
             loadAnnotationTypes();
@@ -29,6 +30,8 @@ angular.module('belmgrWebApp')
             var onSucc = function(annotations) {
                 $scope.structuredAnnotationTypesList = annotations;
                 $scope.structuredAnnotations[0].annotationType = annotations[0].name;
+                modelNewBel.belAnnotation.structuredAnnotations[0].annotationType = $scope.structuredAnnotations[0].annotationType;
+                $scope.structuredAnnotations[0].annotationTypePrefix = annotations[0].prefix;
                 $scope.$apply();
             };
 
@@ -60,6 +63,11 @@ angular.module('belmgrWebApp')
          * @param  {number} index value from ng-repeat's $index to identify the target model
          */
         $scope.changeStructuredAnnotationType = function(index) {
+            $scope.structuredAnnotationTypesList.forEach(function(type) {
+                if (type.name === $scope.structuredAnnotations[index].annotationType) {
+                    $scope.structuredAnnotations[index].annotationTypePrefix = type.prefix;
+                }
+            });
             modelNewBel.belAnnotation.structuredAnnotations[index].annotationType = $scope.structuredAnnotations[index].annotationType;
         };
 
@@ -74,16 +82,14 @@ angular.module('belmgrWebApp')
 
         $scope.COMPLETION_TEMPLATE = '<p>{{name}}</p>';
         $scope.sourceInput = angular.element('.s-annotation');
-
+        var typeaheadIndex;
         $scope.doSourceQuery = function(query, cb) {
-            /* invoke callback without suggestions on error */
+
             var onErr = function() {
                 cb([]);
             };
 
-            /* invoke callback with converted completions on success */
             var onSucc = function(response) {
-                //console.log(response);
                 cb(response);
             };
 
@@ -91,10 +97,16 @@ angular.module('belmgrWebApp')
                 error: onErr,
                 success: onSucc
             };
+            
+            var that;
 
-            // treat end of input element selection as API caret position
+            if (typeof this.$index === 'number') {
+                typeaheadIndex = this.$index;
+            }
+
             if (query !== undefined && query.length > 0) {
-                belhop.annotations.searchByType('clo', query, _cb);
+                var prefix = $scope.structuredAnnotations[typeaheadIndex].annotationTypePrefix;
+                belhop.annotations.searchByType(prefix, query, _cb);
             }
         };
         /**
@@ -108,6 +120,7 @@ angular.module('belmgrWebApp')
             });
             $scope.structuredAnnotations.push({
                 annotationType: $scope.structuredAnnotationTypesList[0].name,
+                annotationTypePrefix: $scope.structuredAnnotationTypesList[0].prefix,
                 annotation: ''
             });
         };
@@ -126,12 +139,11 @@ angular.module('belmgrWebApp')
          * @description ng-blur function to add new entry of structured annotation
          * @param  {number} index value from ng-repeat's $index to identify the target model
          */
-        $scope.structuredAnnotationBlur = function(model, index) {
-            console.log($scope.structuredAnnotations);
-            if (model.length !== 0 && !$scope.structuredAnnotations[index + 1]) {
+        $scope.structuredAnnotationBlur = function(model) {
+            if (model.length !== 0 && !$scope.structuredAnnotations[typeaheadIndex + 1]) {
                 $scope.addStructuredAnnotation();
                 $scope.focusOnType = 'structured';
-                $scope.focusOn = index + 1;
+                $scope.focusOn = typeaheadIndex + 1;
             }
         };
 
