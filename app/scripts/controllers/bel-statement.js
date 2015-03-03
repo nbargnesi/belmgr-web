@@ -10,25 +10,6 @@
 angular.module('belmgrWebApp')
     .controller('belStatementFormController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
         
-        $scope.$watch(function(){
-            return $scope.bels.belsource;
-        }, function(newValue){
-            console.log(newValue);
-            modelNewBel.belStatement.source = newValue;
-        });
-
-        $scope.$watch(function(){
-            return $scope.bels.beltarget;
-        }, function(newValue){
-            console.log(newValue);
-            modelNewBel.belStatement.target = newValue;
-        });
-
-        $scope.bels = {
-            belsource: '',
-            beltarget: ''
-        };
-
         // content and values for the relations dropdown
         $scope.relations = [{
             label: '--Relation--',
@@ -136,9 +117,15 @@ angular.module('belmgrWebApp')
         // Set up the default value for the relations dropdown box
         $scope.belSRelations = $scope.relations[0];
 
+        $scope.bels = {
+            belsubject: '',
+            belobject: '',
+            belrelation: $scope.relations[0]
+        };
+        
         // ng-change function to update the relation in service
         $scope.changeRelation = function(){
-            modelNewBel.belStatement.relation = $scope.belSRelations.label;
+            modelNewBel.belStatement.relation = $scope.bels.belrelation.label;
         };
 
         // ng-click functions that take care of the template/search switch
@@ -190,19 +177,21 @@ angular.module('belmgrWebApp')
         }];
 
         $scope.COMPLETION_TEMPLATE = '<p>{{value}}</p>';
-        $scope.sourceInput = angular.element('#belsource');
-        $scope.targetInput = angular.element('#beltarget');
+        $scope.sourceInput = angular.element('#belsubject');
+        $scope.targetInput = angular.element('#belobject');
 
         $scope.selected = function(event, datum, name) {
 
             var element = null;
 
-            if (name === 'belsource') {
+            if (name === 'belsubject') {
                 element = $scope.sourceInput[0];
-                $scope.bels.belsource = datum.value;
-            } else if (name === 'beltarget') {
+                $scope.bels.belsubject = datum.value;
+                modelNewBel.belStatement.subject = datum.value;
+            } else if (name === 'belobject') {
                 element = $scope.targetInput[0];
-                $scope.bels.beltarget = datum.value;
+                $scope.bels.belobject = datum.value;
+                modelNewBel.belStatement.object = datum.value;
             }
             if (element === null) {
                 return;
@@ -246,7 +235,7 @@ angular.module('belmgrWebApp')
             return datums;
         };
 
-        $scope.doSourceQuery = function(query, cb) {
+        $scope.doSubjectQuery = function(query, cb) {
             /* invoke callback without suggestions on error */
             var onErr = function() {
                 cb([]);
@@ -271,7 +260,7 @@ angular.module('belmgrWebApp')
             }
         };
 
-        $scope.doTargetQuery = function(query, cb) {
+        $scope.doObjectQuery = function(query, cb) {
             /* invoke callback without suggestions on error */
             var onErr = function() {
                 cb([]);
@@ -280,7 +269,6 @@ angular.module('belmgrWebApp')
             /* invoke callback with converted completions on success */
             var onSucc = function(completions) {
                 var datums = $scope.convertCompletions(query, completions);
-                console.log(datums);
                 cb(datums);
             };
 
@@ -298,9 +286,9 @@ angular.module('belmgrWebApp')
         };
 
         $scope.sourceInput.typeahead(null, {
-            name: 'belsource',
+            name: 'belsubject',
             displayKey: 'value',
-            source: $scope.doSourceQuery,
+            source: $scope.doSubjectQuery,
             templates: {
                 empty: null,
                 suggestion: Handlebars.compile($scope.COMPLETION_TEMPLATE)
@@ -310,9 +298,9 @@ angular.module('belmgrWebApp')
         $scope.sourceInput.on('typeahead:autocompleted', $scope.selected);
 
         $scope.targetInput.typeahead(null, {
-            name: 'beltarget',
+            name: 'belobject',
             displayKey: 'value',
-            source: $scope.doTargetQuery,
+            source: $scope.doObjectQuery,
             templates: {
                 empty: null,
                 suggestion: Handlebars.compile($scope.COMPLETION_TEMPLATE)

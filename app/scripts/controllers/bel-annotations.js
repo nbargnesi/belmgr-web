@@ -22,6 +22,8 @@ angular.module('belmgrWebApp')
             loadAnnotationTypes();
         };
 
+        $scope.COMPLETION_TEMPLATE = '<p>{{name}}</p>';
+
         function loadAnnotationTypes() {
             var onErr = function() {
 
@@ -69,6 +71,7 @@ angular.module('belmgrWebApp')
                 }
             });
             modelNewBel.belAnnotation.structuredAnnotations[index].annotationType = $scope.structuredAnnotations[index].annotationType;
+            $scope.structuredAnnotations[index].annotation = '';
         };
 
         /**
@@ -80,10 +83,8 @@ angular.module('belmgrWebApp')
             modelNewBel.belAnnotation.structuredAnnotations[index].annotation = $scope.structuredAnnotations[index].annotation;
         };
 
-        $scope.COMPLETION_TEMPLATE = '<p>{{name}}</p>';
-        $scope.sourceInput = angular.element('.s-annotation');
         var typeaheadIndex;
-        $scope.doSourceQuery = function(query, cb) {
+        $scope.searchAnnotation = function(query, cb) {
 
             var onErr = function() {
                 cb([]);
@@ -97,8 +98,6 @@ angular.module('belmgrWebApp')
                 error: onErr,
                 success: onSucc
             };
-            
-            var that;
 
             if (typeof this.$index === 'number') {
                 typeaheadIndex = this.$index;
@@ -142,8 +141,7 @@ angular.module('belmgrWebApp')
         $scope.structuredAnnotationBlur = function(model) {
             if (model.length !== 0 && !$scope.structuredAnnotations[typeaheadIndex + 1]) {
                 $scope.addStructuredAnnotation();
-                $scope.focusOnType = 'structured';
-                $scope.focusOn = typeaheadIndex + 1;
+                $('select[name="structuredAnnotations-' + (typeaheadIndex + 1) + '"]').focus();
             }
         };
 

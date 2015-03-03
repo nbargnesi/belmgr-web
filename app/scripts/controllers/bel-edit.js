@@ -9,9 +9,9 @@
  */
 angular.module('belmgrWebApp')
     .controller('NewbelCtrl', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
-
+        
         $scope.modelNewBel = '';
-
+        
         // the model data that will be sent to the server
         $scope.belStatement = modelNewBel.belStatement;
         $scope.belCitation = modelNewBel.belCitation;

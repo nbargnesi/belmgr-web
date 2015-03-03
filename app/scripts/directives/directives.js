@@ -72,9 +72,9 @@ angular.module('belmgrWebApp')
             require: 'ngModel',
             link: function(scope, element, attrs, ngModel) {
                 angular.element(element).typeahead(null, {
-                    name: 's-annotation',
+                    name: attrs.name,
                     displayKey: 'value',
-                    source: scope.doSourceQuery,
+                    source: scope.searchAnnotation,
                     templates: {
                         empty: null,
                         suggestion: Handlebars.compile(scope.COMPLETION_TEMPLATE)

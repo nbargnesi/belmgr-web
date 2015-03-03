@@ -38,6 +38,7 @@ angular.module('belmgrWebApp')
         };
 
         $scope.createdDate = new Date();
+        modelNewBel.belMetadata.createdDate = $filter('date')($scope.createdDate, 'yyyy-MM-dd');
         // ng-change to update the createdDate value into the service
         $scope.changeCreatedDate = function() {
             modelNewBel.belMetadata.createdDate = $filter('date')($scope.createdDate, 'yyyy-MM-dd');

@@ -26,16 +26,16 @@
     <div data-ng-repeat="annotation in structuredAnnotations">
         <div class="col-sm-3">
             <div class="form-group">
-                <label for="structuredAnnotations">Annotation Type</label>
-                <select name="" class="form-control structuredAnnotations" data-ng-model="annotation.annotationType" data-ng-options="type.name as type.name for type in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)" focus-index="{{$index}}" /></select>
+                <label for="structuredAnnotations-{{$index}}">Annotation Type</label>
+                <select name="structuredAnnotations-{{$index}}" class="form-control structuredAnnotations" data-ng-model="annotation.annotationType" data-ng-options="type.name as type.name for type in structuredAnnotationTypesList" data-ng-change="changeStructuredAnnotationType($index)" focus-index="{{$index}}" /></select>
             </div>
             <!-- .form-group -->
         </div>
         <!-- .col-sm-3 -->
         <div class="col-sm-8">
             <div class="form-group">
-                <label for="s-annotation">Annotation</label>
-                <input name="s-annotation" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="doSourceQuery()" repeat-typeahead data-ng-blur="structuredAnnotationBlur(annotation.annotation)" />
+                <label for="s-annotation-{{$index}}">Annotation</label>
+                <input name="s-annotation-{{$index}}" class="form-control s-annotation" type="text" data-ng-model="annotation.annotation" data-ng-change="searchAnnotation()" repeat-typeahead data-ng-blur="structuredAnnotationBlur(annotation.annotation)" />
             </div>
             <!-- .form-group -->
         </div>
