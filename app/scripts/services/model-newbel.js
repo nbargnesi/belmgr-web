@@ -46,7 +46,9 @@ angular.module('belmgrWebApp')
 
         function createEvidence(belStatement, belCitation, belAnnotation, belMetadata) {
             
+            convertCitationAuthors();
             var statement = belStatement.source + ' ' + belStatement.relation + ' ' + belStatement.target;
+            console.log(belCitation.authors);
             var citation = belhop.factory.citation(belCitation.reference, belCitation.citationType, belCitation.name, belCitation.publishDate, belCitation.authors, belCitation.comments);
             var annotations = createAnnotations();
             var summaryText = (belAnnotation.belSummaryText.length !== 0) ? belAnnotation.belSummaryText : null;
@@ -90,6 +92,9 @@ angular.module('belmgrWebApp')
                 } else {
                     return null;
                 }
+            }
+            function convertCitationAuthors(){
+                belCitation.authors = belCitation.authors.split(';');
             }
         }
 
