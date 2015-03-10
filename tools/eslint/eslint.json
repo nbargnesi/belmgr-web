@@ -1,0 +1,14 @@
+{
+    "rules": {
+        "indent": [2, 2],
+        "quotes": [2, "single"],
+
+        "no-unused-vars": [1],
+        "max-len": [1, 80, 2],
+
+        "no-underscore-dangle": 0,
+        "no-console": 0,
+        "curly": 0,
+        "camelcase": 0
+    }
+}

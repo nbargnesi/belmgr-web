@@ -132,9 +132,12 @@ module.exports = function (grunt) {
 
     // Make sure code styles are up to par and there are no obvious mistakes
     eslint: {
+      target: [
+        'app/**/*.js'
+      ],
       options: {
-      },
-      target: ['app/**/*.js']
+        configFile: 'tools/eslint/eslint.json'
+      }
     },
 
     // Empties folders to start fresh
@@ -402,6 +405,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'eslint',
       'clean:server',
       'wiredep',
       'concurrent:server',
@@ -447,7 +451,7 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('eslint', [
+  grunt.registerTask('lint', [
     'eslint'
   ]);
 };
