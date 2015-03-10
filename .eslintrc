@@ -1,0 +1,34 @@
+plugins:
+  - angular
+
+rules:
+    angular/ng_controller_name:
+      - 2
+      - '/[A-Z].*Controller$/'
+
+    # ERRORS
+    indent: [2, 2]
+
+    # WARNINGS
+    no-unused-vars: [1]
+    max-len: [1, 80, 2]
+
+    # DISABLED. These aren't compatible with our style
+    # We use underscores to indicate privata/internal vars
+    no-underscore-dangle: 0
+
+    # We support node and use the console
+    no-console: 0
+
+    # We allow compact conditionals
+    curly: 0
+
+    # The OpenBEL server API does not use camelcase
+    camelcase: 0
+
+    # We require single-quoted strings
+    quotes: [2, 'single']
+
+globals:
+    angular: true
+
