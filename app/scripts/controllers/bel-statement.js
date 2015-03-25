@@ -7,112 +7,23 @@
  * # belStatementFormController
  * Controller of the belmgrWebApp
  */
+
+// angular.module('belmgrWebApp').controller('belStatementFormController', belStatement);
+// belStatement.$inject = ['modelNewBel'];
+
+// function belStatement(modelNewBel) {
+//         // refrence of 'this' to be used for controllerAs in angular
+//         var controller = this;
+        
+//         controller.relations = modelNewBel.getRelations();
+        
+//     } // end of belStatementFormController
+
 angular.module('belmgrWebApp')
     .controller('belStatementFormController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
-        
-        // content and values for the relations dropdown
-        $scope.relations = [{
-            label: '--Relation--',
-            value: ''
-        }, {
-            label: 'increases',
-            value: 'increases'
-        }, {
-            label: 'decreases',
-            value: 'decreases'
-        }, {
-            label: 'directlyIncreases',
-            value: 'directlyIncreases'
-        }, {
-            label: 'directlyDecreases',
-            value: 'directlyDecreases'
-        }, {
-            label: 'causesNoChange',
-            value: 'causesNoChange'
-        }, {
-            label: 'positiveCorrelation',
-            value: 'positiveCorrelation'
-        }, {
-            label: 'negativeCorrelation',
-            value: 'negativeCorrelation'
-        }, {
-            label: 'translatedTo',
-            value: 'translatedTo'
-        }, {
-            label: 'transcribedTo',
-            value: 'transcribedTo'
-        }, {
-            label: 'isA',
-            value: 'isA'
-        }, {
-            label: 'subProcessOf',
-            value: 'subProcessOf'
-        }, {
-            label: 'rateLimitingStepOf',
-            value: 'rateLimitingStepOf'
-        }, {
-            label: 'biomarkerFor',
-            value: 'biomarkerFor'
-        }, {
-            label: 'prognosticBiomarkerFor',
-            value: 'prognosticBiomarkerFor'
-        }, {
-            label: 'orthologous',
-            value: 'orthologous'
-        }, {
-            label: 'analogous',
-            value: 'analogous'
-        }, {
-            label: 'association',
-            value: 'association'
-        }, {
-            label: 'hasMembers',
-            value: 'hasMembers'
-        }, {
-            label: 'hasComponents',
-            value: 'hasComponents'
-        }, {
-            label: 'hasMember',
-            value: 'hasMember'
-        }, {
-            label: 'hasComponent',
-            value: 'hasComponent'
-        }, {
-            label: 'actsIn',
-            value: 'actsIn'
-        }, {
-            label: 'includes',
-            value: 'includes'
-        }, {
-            label: 'translocates',
-            value: 'translocates'
-        }, {
-            label: 'hasProduct',
-            value: 'hasProduct'
-        }, {
-            label: 'reactantIn',
-            value: 'reactantIn'
-        }, {
-            label: 'hasModification',
-            value: 'hasModification'
-        }, {
-            label: 'hasVariant',
-            value: 'hasVariant'
-        }];
 
-        $scope.citation_types = [{
-            label: 'PubmedID',
-            value: 'pubmedid'
-        }, {
-            label: 'Journal',
-            value: 'journal'
-        }, {
-            label: 'Online Resource',
-            value: 'onlineresource'
-        }, {
-            label: 'Other',
-            value: 'other'
-        }];
+        // content and values for the relations dropdown
+        $scope.relations = modelNewBel.getRelations();
 
         // Set up the default value for the relations dropdown box
         $scope.belSRelations = $scope.relations[0];
@@ -122,9 +33,9 @@ angular.module('belmgrWebApp')
             belobject: '',
             belrelation: $scope.relations[0]
         };
-        
+
         // ng-change function to update the relation in service
-        $scope.changeRelation = function(){
+        $scope.changeRelation = function() {
             modelNewBel.belStatement.relation = $scope.bels.belrelation.label;
         };
 
@@ -200,6 +111,7 @@ angular.module('belmgrWebApp')
             }
             var actions = datum.actions;
             var cursorpos = -1;
+
             function moveCur(action) {
                 if (action.move_cursor) {
                     cursorpos = action.move_cursor.position;

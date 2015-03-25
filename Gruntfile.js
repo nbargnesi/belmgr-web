@@ -405,13 +405,13 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'eslint',
       'clean:server',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
-      'watch'
+      'watch',
+      'eslint'
     ]);
   });
 
