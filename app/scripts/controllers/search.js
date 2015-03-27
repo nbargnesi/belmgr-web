@@ -16,7 +16,7 @@ searchCtrl.$inject = ['$scope', '$filter', 'searchService'];
 function searchCtrl($scope, $filter, searchService) {
 
         $scope.init = function() {
-        	$scope.searchQuery = '';
+            $scope.searchQuery = '';
             $scope.statusFacet = true;
             // this is the default settings for evidence search
             $scope.evidenceSetting = new evidenceSetting();
@@ -39,16 +39,17 @@ function searchCtrl($scope, $filter, searchService) {
         }
 
         $scope.getEvidenceCollectionNext = function() {
-        	var previous = $scope.evidenceSetting.start;
+            var previous = $scope.evidenceSetting.start;
             $scope.evidenceSetting = new evidenceSetting();
             $scope.evidenceSetting.start = previous + 100;
             searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence, $scope.additionalFilters);
         };
 
         $scope.getEvidenceCollectionPrev = function() {
+            var previous = $scope.evidenceSetting.start;
             $scope.evidenceSetting = new evidenceSetting();
-            if ($scope.evidenceSetting.start >= 100) {
-                $scope.evidenceSetting.start = $scope.evidenceSetting.start - 100;
+            if (previous >= 100) {
+                $scope.evidenceSetting.start = previous - 100;
             } else {
                 $scope.evidenceSetting.start = 0
             }
@@ -81,7 +82,7 @@ function searchCtrl($scope, $filter, searchService) {
                         $scope.selectedFacets.forEach(function(item) {
                             if (item.value === facet.filter.value) {
                                 facet.selected = true;
-                            } 
+                            }
                         });
                         species.content.push(facet);
                     }
@@ -89,7 +90,7 @@ function searchCtrl($scope, $filter, searchService) {
                     $scope.selectedFacets.forEach(function(item) {
                         if (item.value === facet.filter.value) {
                             facet.selected = true;
-                        } 
+                        }
                     });
                     if (!angular.isArray(facet.filter.value)) {
                         status.content.push(facet);
