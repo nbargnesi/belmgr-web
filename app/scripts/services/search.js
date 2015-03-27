@@ -16,10 +16,10 @@ function searchService() {
         };
         return service;
 
-        function getEvidenceCollection(setting, cb) {
-            
+        function getEvidenceCollection(setting, cb, additionalFilters) {
+
             function _success(responseData, statusString, request) {
-            	console.log(request);
+                console.log(responseData);
                 cb(responseData.evidence, responseData.facets);
             }
 
@@ -31,9 +31,17 @@ function searchService() {
                 success: _success,
                 error: _error
             };
-            // var FilterOptions = new belhop.__.FilterOptions(100, '', '', '');
+            //var FilterOptions = new belhop.__.FilterOptions('metadata', 'status', 'Draft');
+            
             var searchOptions = new belhop.__.SearchOptions(setting.start, setting.size, setting.facet, setting.filterOptions);
-            console.log(searchOptions);
-            belhop.evidence.search(searchOptions, _cb);
+            
+            if (setting.facet === true) {
+                belhop.evidence.search(searchOptions, _cb, {
+                    additionalFilters: additionalFilters
+                });
+            } else {
+                belhop.evidence.search(searchOptions, _cb);
+            }
+
         }
     } // end of searchService

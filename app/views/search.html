@@ -5,7 +5,7 @@
                 <div class="input-group">
                     <input type="text" id="searchquery" class="form-control" placeholder="Search for..." ng-model="searchQuery">
                     <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
+                    <button class="btn btn-default" type="button" data-ng-click="searchEvidence()">Go!</button>
                 </span>
                     </br>
                 </div>
@@ -19,24 +19,24 @@
                     <h4 class="panel-title">Status</h4>
                 </div>
                 <div class="panel-body">
-                    Status facets
+                    <input type="checkbox" data-ng-model="statusFacet" /> Status facets
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-default" data-ng-repeat="facet in facetsSet" data-ng-if="facetsSet[0].content.length!==0">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Species</h4>
+                    <h4 class="panel-title">{{facet.facetGroup}}</h4>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li class="list-group-item" data-ng-repeat="facet in facetsSet">
-                            <input type="checkbox" data-ng-model="facet.selected" data-ng-change="facetFilter(facet.filter, facet.selected)" /><span class="badge">{{facet.count}}</span> {{facet.filter.value}}
+                        <li class="list-group-item" data-ng-repeat="item in facet.content">
+                            <input type="checkbox" data-ng-model="item.selected" data-ng-change="facetFilter(item.filter, item.selected)" /><span class="badge">{{item.count}}</span> {{item.filter.value}}
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-xs-8">
-            {{selectedFacets}}
+            {{statusFacet}} {{selectedFacets}} 
             <h2>Results</h2>
             <button class="btn btn-primary" data-ng-click="getEvidenceCollectionPrev()">prev</button>
             <button class="btn btn-primary" data-ng-click="getEvidenceCollectionNext()">next</button>

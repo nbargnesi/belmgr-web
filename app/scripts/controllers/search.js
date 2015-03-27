@@ -14,15 +14,28 @@ angular.module('belmgrWebApp')
 searchCtrl.$inject = ['$scope', '$filter', 'searchService'];
 
 function searchCtrl($scope, $filter, searchService) {
+
         $scope.init = function() {
-            $scope.evidenceSetting = {
-                start: '0',
-                size: '100',
-                facet: true,
-                filterOptions: null
-            };
+            $scope.statusFacet = true;
+            // this is the default settings for evidence search
+            $scope.evidenceSetting = new evidenceSetting();
+            // runs the search with the default settings as the init results
             searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence);
         };
+
+        // the evidence setting class
+        function evidenceSetting() {
+            this.start = '0';
+            this.size = '100';
+            this.facet = $scope.statusFacet;
+            this.filterOptions = createFilterOptions();
+        }
+
+        function createFilterOptions() {
+            var filterOptions = null;
+            $scope.additionalFilters = $scope.selectedFacets;
+            return filterOptions;
+        }
 
         $scope.getEvidenceCollectionNext = function() {
             $scope.evidenceSetting.start = (parseInt($scope.evidenceSetting.start) + 100).toString();
@@ -42,53 +55,49 @@ function searchCtrl($scope, $filter, searchService) {
                 evidence.show = true;
             });
             $scope.facetsSet = [];
+
+            // this is hard coded
+            var species = {
+                facetGroup: 'Species',
+                content: []
+            };
+            var status = {
+                facetGroup: 'Status',
+                content: []
+            };
+
+            // show the facets
             facets.forEach(function(facet) {
                 if (facet.filter.category === 'biological_context' && facet.filter.name === "Species") {
-                    if (angular.isArray(facet.filter.value)) {
-                        facet.filter.value = facet.filter.value.toString();
+                    if (!angular.isArray(facet.filter.value)) {
+                        species.content.push(facet);
                     }
-                    $scope.facetsSet.push(facet);
                 } else if (facet.filter.category === 'metadata' && facet.filter.name === "status") {
-                    if (angular.isArray(facet.filter.value)) {
-                        facet.filter.value = facet.filter.value.toString();
+                    if (!angular.isArray(facet.filter.value)) {
+                        status.content.push(facet);
                     }
-                    $scope.facetsSet.push(facet);
                 }
             });
-            console.log($scope.facetsSet);
+            $scope.facetsSet.push(species, status);
             $scope.$apply(['$scope.evidenceCollection', '$scope.facetsSet']);
         }
 
         $scope.selectedFacets = [];
 
         $scope.facetFilter = function(filterObject, applyFilter) {
+            var filter = belhop.factory.options.filter.custom(filterObject.category, filterObject.name, filterObject.value)
             if (applyFilter === true) {
-                $scope.selectedFacets.push(filterObject.value);
-                $scope.evidenceCollection.forEach(function(evidence) {
-                    if (evidence[filterObject.category]) {
-                        if (angular.isArray(evidence[filterObject.category])) {
-                            evidence[filterObject.category].forEach(function(compare) {
-
-                                if (angular.isArray(compare.value)) {
-                                    comapre.value = compare.value.toString();
-                                }
-
-                                if (compare.name === filterObject.name && compare.value === filterObject.value) {
-                                    evidence.show = true;
-                                } else {
-                                    evidence.show = false;
-                                }
-                            });
-                        }
-                    } else {
-                        evidence.show = false;
-                    }
-                });
+                $scope.selectedFacets.push(filter);
             } else {
-                $scope.selectedFacets.splice($scope.selectedFacets.indexOf(filterObject.value), 1);
-                $scope.evidenceCollection.forEach(function(evidence) {
-                    evidence.show = true;
-                });
+                $scope.selectedFacets.splice($scope.selectedFacets.indexOf(filter), 1);
             }
         };
+
+        $scope.searchEvidence = function() {
+            // create new search options
+            $scope.evidenceSetting = new evidenceSetting();
+            searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence, $scope.additionalFilters);
+            $scope.selectedFacets = [];
+        };
+
     } // end of SearchCtrl

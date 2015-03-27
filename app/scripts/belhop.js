@@ -1264,7 +1264,7 @@
    * @return {belhop.Facet} the BELHop type produced by this factory
    */
   belhop.factory.facet = function(count, category, name, value) {
-    //_assert_args(arguments, 4);
+    _assert_args(arguments, 4);
     var product = new Facet(count, category, name, value);
     return product;
   };
