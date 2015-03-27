@@ -16,6 +16,7 @@ searchCtrl.$inject = ['$scope', '$filter', 'searchService'];
 function searchCtrl($scope, $filter, searchService) {
 
         $scope.init = function() {
+        	$scope.searchQuery = '';
             $scope.statusFacet = true;
             // this is the default settings for evidence search
             $scope.evidenceSetting = new evidenceSetting();
@@ -25,8 +26,8 @@ function searchCtrl($scope, $filter, searchService) {
 
         // the evidence setting class
         function evidenceSetting() {
-            this.start = '0';
-            this.size = '100';
+            this.start = 0;
+            this.size = 100;
             this.facet = $scope.statusFacet;
             this.filterOptions = createFilterOptions();
         }
@@ -38,15 +39,20 @@ function searchCtrl($scope, $filter, searchService) {
         }
 
         $scope.getEvidenceCollectionNext = function() {
-            $scope.evidenceSetting.start = (parseInt($scope.evidenceSetting.start) + 100).toString();
-            searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence);
+        	var previous = $scope.evidenceSetting.start;
+            $scope.evidenceSetting = new evidenceSetting();
+            $scope.evidenceSetting.start = previous + 100;
+            searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence, $scope.additionalFilters);
         };
 
         $scope.getEvidenceCollectionPrev = function() {
-            if (parseInt($scope.evidenceSetting.start) >= 100) {
-                $scope.evidenceSetting.start = (parseInt($scope.evidenceSetting.start) - 100).toString();
+            $scope.evidenceSetting = new evidenceSetting();
+            if ($scope.evidenceSetting.start >= 100) {
+                $scope.evidenceSetting.start = $scope.evidenceSetting.start - 100;
+            } else {
+                $scope.evidenceSetting.start = 0
             }
-            searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence);
+            searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence, $scope.additionalFilters);
         };
 
         function loadEvidence(collection, facets) {
@@ -59,25 +65,38 @@ function searchCtrl($scope, $filter, searchService) {
             // this is hard coded
             var species = {
                 facetGroup: 'Species',
-                content: []
+                content: [],
+                filters: ''
             };
             var status = {
                 facetGroup: 'Status',
-                content: []
+                content: [],
+                filters: ''
             };
 
             // show the facets
             facets.forEach(function(facet) {
                 if (facet.filter.category === 'biological_context' && facet.filter.name === "Species") {
                     if (!angular.isArray(facet.filter.value)) {
+                        $scope.selectedFacets.forEach(function(item) {
+                            if (item.value === facet.filter.value) {
+                                facet.selected = true;
+                            } 
+                        });
                         species.content.push(facet);
                     }
                 } else if (facet.filter.category === 'metadata' && facet.filter.name === "status") {
+                    $scope.selectedFacets.forEach(function(item) {
+                        if (item.value === facet.filter.value) {
+                            facet.selected = true;
+                        } 
+                    });
                     if (!angular.isArray(facet.filter.value)) {
                         status.content.push(facet);
                     }
                 }
             });
+
             $scope.facetsSet.push(species, status);
             $scope.$apply(['$scope.evidenceCollection', '$scope.facetsSet']);
         }
@@ -97,7 +116,6 @@ function searchCtrl($scope, $filter, searchService) {
             // create new search options
             $scope.evidenceSetting = new evidenceSetting();
             searchService.getEvidenceCollection($scope.evidenceSetting, loadEvidence, $scope.additionalFilters);
-            $scope.selectedFacets = [];
         };
 
     } // end of SearchCtrl
