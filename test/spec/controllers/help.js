@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: HelpCtrl', function () {
+describe('Controller: HelpController', function () {
 
   // load the controller's module
   beforeEach(module('belmgrWebApp'));
 
-  var HelpCtrl,
+  var HelpController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    HelpCtrl = $controller('HelpCtrl', {
+    HelpController = $controller('HelpController', {
       $scope: scope
     });
   }));
