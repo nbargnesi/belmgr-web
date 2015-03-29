@@ -1,14 +1,15 @@
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name belmgrWebApp.controller:belCitationFormController
- * @description
- * # belCitationFormController
- * Controller of the belmgrWebApp
- */
-angular.module('belmgrWebApp')
-    .controller('belCitationFormController', ['$scope', '$filter', 'modelNewBel', function($scope, $filter, modelNewBel) {
+  /**
+   * @ngdoc function
+   * @name belmgrWebApp.controller:BELCitationFormController
+   * @description
+   * # BELCitationFormController
+   * Controller of the belmgrWebApp
+   */
+  angular.module('belmgrWebApp')
+      .controller('BELCitationFormController', ['$scope', '$filter', 'modelNewBel', function($scope, $filter, modelNewBel) {
 
         // var to be set once the citation type is changed to PubMed
         $scope.selectPubMed = false;
@@ -89,4 +90,5 @@ angular.module('belmgrWebApp')
             modelNewBel.belCitation.comments = $scope.citationComments;
         };
 
-    }]);
+  }]);
+}());

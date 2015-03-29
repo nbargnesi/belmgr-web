@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: NewbelCtrl', function () {
+describe('Controller: NewEvidenceController', function () {
 
   // load the controller's module
   beforeEach(module('belmgrWebApp'));
 
-  var NewbelCtrl,
+  var NewEvidenceController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    NewbelCtrl = $controller('NewbelCtrl', {
+    NewEvidenceController = $controller('NewEvidenceController', {
       $scope: scope
     });
   }));

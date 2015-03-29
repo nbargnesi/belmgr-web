@@ -1,14 +1,15 @@
-'use strict';
+(function () {
+  'use strict';
 
-/**
- * @ngdoc function
- * @name belmgrWebApp.controller:belAnnotationFormController
- * @description
- * # belAnnotationFormController
- * Controller of the belmgrWebApp
- */
-angular.module('belmgrWebApp')
-    .controller('belAnnotationFormController', ['$scope', '$http', 'modelNewBel', function($scope, $http, modelNewBel) {
+  /**
+   * @ngdoc function
+   * @name belmgrWebApp.controller:BELAnnotationFormController
+   * @description
+   * # BELAnnotationFormController
+   * Controller of the belmgrWebApp
+   */
+  angular.module('belmgrWebApp')
+      .controller('AnnotationFormController', ['$scope', '$http', 'modelNewBel', function($scope, $http, modelNewBel) {
         /**
          * @function init
          * @description an ng-init function to update the options calling annotation api from belhop
@@ -209,4 +210,5 @@ angular.module('belmgrWebApp')
             }
         };
 
-    }]);
+  }]);
+}());
