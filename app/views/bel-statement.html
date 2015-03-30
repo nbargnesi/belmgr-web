@@ -4,18 +4,17 @@
     </div>
     <!-- .col-sm-12 -->
     <div id="bel-source-div" class="col-sm-5">
-        <div class="input-group">
+        <div class="form-group">
             <label class="sr-only" for="belsubject">BEL Source</label>
             <input name="belsubject" id="belsubject" class="form-control typeahead" placeholder="Subject" data-ng-model="bels.belsubject" autocomplete="on" data-ng-change="doSubjectQuery()" data-ng-model-options="{debounce: 300}"></input>
-            <span class="input-group-btn">
+<!--             <span class="input-group-btn">
                     <button class="btn btn-primary" data-ng-click="toggleSourceTemplate()">T</button>
                     <button class="btn btn-primary" data-ng-click="toggleSourceSearch()">S</button>
-                </span>
+                </span> -->
             <!-- span.input-group-btn -->
         </div>
         <!-- .input-group -->
-        <div id="source-templatebox" class="template-box" style="display: none;">
-            <!-- might be better to create template for it later -->
+<!--         <div id="source-templatebox" class="template-box" style="display: none;">
             <h3>BEL Template</h3>
             <div class="col-md-4">
                 <label class="checkbox-inline">
@@ -43,7 +42,6 @@
                 </label>
             </div>
             <div class="col-md-4">
-
             </div>
             <div class="col-sm-12">
                 <p>Output</p>
@@ -52,35 +50,33 @@
             <div class="text-center">
                 <button class="btn btn-primary text-center">Select</button>
             </div>
-            <!-- .text-center -->
-        </div>
-        <!-- #source-templatebox.template-box -->
+
+        </div> -->
+
+
         <div id="source-searchbox" class="search-box" style="display: none;">
-            <!-- might be better to create template for it later -->
             <h3>Entity Search</h3>
         </div>
-        <!-- #source-searchbox.search-box -->
     </div>
-    <!-- #bel-source-div.col-sm-5 -->
+
     <div id="bel-relation-div" class="col-sm-2">
         <label class="sr-only" for="belrelation">BEL Relation</label>
         <select class="form-control" id="belrelation" data-ng-model="bels.belrelation" data-ng-options="relation as relation.label for relation in relations" style="margin-top: 4px;" data-ng-change="changeRelation()">
         </select>
     </div>
-    <!-- #bel-relation-div.col-sm-2 -->
+
     <div id="bel-target-div" class="col-sm-5">
-        <div class="input-group">
+        <div class="form-group input-block-level">
             <label class="sr-only" for="belobject">BEL Target</label>
             <input name="belobject" id="belobject" type="text" class="form-control typeahead" placeholder="Object" data-ng-model="bels.belobject" autocomplete="off" data-ng-change="doObjectQuery()" data-ng-model-options="{debounce: 300}">
-            <span class="input-group-btn">
-                    <button class="btn btn-primary" data-ng-click="toggleTargetTemplate()">T</button>
-                    <button class="btn btn-primary" data-ng-click="toggleTargetSearch()">S</button>
-                </span>
+<!--             <span class="input-group-btn">
+                <button class="btn btn-primary" data-ng-click="toggleTargetTemplate()">T</button>
+                <button class="btn btn-primary" data-ng-click="toggleTargetSearch()">S</button>
+            </span> -->
             <!-- .input-group-btn -->
         </div>
         <!-- .input-group -->
-        <div id="target-templatebox" class="template-box" style="display: none;">
-            <!-- might be better to create template for it later -->
+        <!--         <div id="target-templatebox" class="template-box" style="display: none;">
             <h3>BEL Template</h3>
             <div class="col-md-4">
                 <label class="checkbox-inline">
@@ -117,14 +113,12 @@
             <div class="text-center">
                 <button class="btn btn-primary text-center">Select</button>
             </div>
-            <!-- .text-center -->
         </div>
-        <!-- #target-templatebox.template-box -->
+
         <div id="target-searchbox" class="search-box" style="display: none;">
-            <!-- might be better to create template for it later -->
             <h3>Entity Search</h3>
         </div>
-        <!-- #target-searchbox.search-box -->
+ -->
     </div>
     <!-- #bel-target-div.col-sm-5 -->
 </section>

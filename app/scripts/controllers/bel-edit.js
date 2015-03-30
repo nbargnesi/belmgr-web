@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
 
   /**
@@ -10,9 +10,9 @@
    */
   angular.module('belmgrWebApp')
     .controller('NewEvidenceController', ['$scope', 'modelNewBel', function($scope, modelNewBel) {
-        
+
       $scope.modelNewBel = '';
-      
+
       // the model data that will be sent to the server
       $scope.belStatement = modelNewBel.belStatement;
       $scope.belCitation = modelNewBel.belCitation;
@@ -27,14 +27,14 @@
 
       // ng-click to submit the evidence
       $scope.submitNewBel = function() {
-          $scope.modelNewBel = modelNewBel.updateNewBel();
+        $scope.modelNewBel = modelNewBel.updateNewBel();
       };
 
       // ng-click to reset the form
       $scope.reset = function() {
-          $scope.newBelForm.$setPristine();
-          $scope.modelNewBel = '';
-          modelNewBel.resetNewBel();
+        $scope.newBelForm.$setPristine();
+        $scope.modelNewBel = '';
+        modelNewBel.resetNewBel();
       };
     }]);
 }());
