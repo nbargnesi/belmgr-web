@@ -1,0 +1,21 @@
+<div>
+    <label>Biological Context</label>
+    <div ng-repeat="item in evidence.biological_context">
+        <p>Name: {{item.name}}</p>
+        <p>Value: {{item.value}}</p>
+    </div>
+</div>
+<div>
+    <label>Citation</label>
+    <p>Id: {{evidence.citation.id}}</p>
+    <p>Name: {{evidence.citation.name}}</p>
+    <p>Type: {{evidence.citation.type}}</p>
+</div>
+<div>
+    <label>Metadata</label>
+    <p>Status: {{evidence.metadata.status}}</p>
+</div>
+<div>
+    <label>Summary Text</label>
+    <p>{{evidence.summary_text}}</p>
+</div>
